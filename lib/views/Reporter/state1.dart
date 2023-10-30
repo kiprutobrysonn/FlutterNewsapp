@@ -10,6 +10,8 @@ class State1 extends StatefulWidget {
 class _State1State extends State<State1> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Placeholder(),
+    );
   }
 }

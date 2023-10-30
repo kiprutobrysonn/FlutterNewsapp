@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:user_reporter/Admin/loginscreen1.dart';
-import 'package:user_reporter/home.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
+import 'package:user_reporter/views/Admin/admin_export.dart';
+import 'package:user_reporter/views/Reporter/reporter_user_export.dart';
 
-class signup extends StatefulWidget {
-  const signup({super.key});
+class loginpage extends StatefulWidget {
+  const loginpage({super.key});
 
   @override
-  State<signup> createState() => _signupState();
+  State<loginpage> createState() => _loginpageState();
 }
 
-class _signupState extends State<signup> {
+class _loginpageState extends State<loginpage> {
   bool abc = false;
   bool passToggle = true;
   final formfield = GlobalKey<FormState>();
   final formfield1 = GlobalKey<FormState>();
   final passcontroller = TextEditingController();
   final emailcontroller = TextEditingController();
-  final namecontroller = TextEditingController();
-  final lnamecontroller = TextEditingController();
+  String drop = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +36,7 @@ class _signupState extends State<signup> {
                           width: double.infinity,
                           color: Color.fromARGB(255, 216, 230, 242),
                           child: Image.asset(
-                            'assets/sign.png',
+                            'assets/login.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -52,7 +51,7 @@ class _signupState extends State<signup> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Sign Up",
+                          "Sign In",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 28,
@@ -68,41 +67,36 @@ class _signupState extends State<signup> {
                               autovalidateMode: AutovalidateMode.always,
                               child: Column(
                                 children: [
-                                  TextFormField(
-                                    controller: namecontroller,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromARGB(255, 171, 200, 225),
-                                      border: OutlineInputBorder(),
-                                      hintText: "  Enter Frist Name",
-                                    ),
-                                    keyboardType: TextInputType.visiblePassword,
+                                  DropdownButtonFormField(
                                     validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter a Frist Name";
+                                      if (value == null) {
+                                        return "Select User";
                                       }
                                       return null;
                                     },
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  TextFormField(
-                                    controller: lnamecontroller,
+                                    value: drop.isEmpty ? null : drop,
+                                    hint: Text("Select User"),
                                     decoration: InputDecoration(
-                                      filled: true,
                                       fillColor:
                                           Color.fromARGB(255, 171, 200, 225),
+                                      filled: true,
                                       border: OutlineInputBorder(),
-                                      hintText: "  Enter Last Name",
                                     ),
-                                    keyboardType: TextInputType.visiblePassword,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter a Last Name";
-                                      }
-                                      return null;
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: "1",
+                                        child: Text("Admin"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: "2",
+                                        child: Text("Repoter"),
+                                      ),
+                                    ],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        drop = value!;
+                                        print(drop);
+                                      });
                                     },
                                   ),
                                   SizedBox(
@@ -118,18 +112,18 @@ class _signupState extends State<signup> {
                                       hintText: "  Enter Your Email Address",
                                     ),
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter Email";
-                                      }
-                                      bool emailValid = RegExp(
-                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                          .hasMatch(value);
-                                      if (!emailValid) {
-                                        return "Please enter valid email";
-                                      }
-                                      return null;
-                                    },
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Enter Email";
+                                    //   }
+                                    //   bool emailValid = RegExp(
+                                    //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    //       .hasMatch(value);
+                                    //   if (!emailValid) {
+                                    //     return "Please enter valid email";
+                                    //   }
+                                    //   return null;
+                                    // },
                                   ),
                                   SizedBox(
                                     height: 30,
@@ -156,13 +150,13 @@ class _signupState extends State<signup> {
                                               size: 15),
                                         )),
                                     keyboardType: TextInputType.visiblePassword,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter a Password";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                    //   validator: (value) {
+                                    //     if (value!.isEmpty) {
+                                    //       return "Enter a Password";
+                                    //     }
+                                    //     return null;
+                                    //   },
+                                  )
                                 ],
                               )),
                         ),
@@ -186,10 +180,12 @@ class _signupState extends State<signup> {
                                 ),
                               ),
                               Expanded(
-                                  child: Container(
-                                      child:
-                                          Text("Accept Terms & Conditions"))),
+                                  child:
+                                      Container(child: Text("Keep me login"))),
                               Spacer(),
+                              Expanded(
+                                  child: Container(
+                                      child: Text("Recovery Password"))),
                             ],
                           ),
                         ),
@@ -206,9 +202,19 @@ class _signupState extends State<signup> {
                                 passcontroller.clear();
 
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    if (drop == "1") {
+                                      return Home_admin_admin();
+                                    } else if (drop == "2") {
+                                      return Home();
+                                    } else {
+                                      return SnackBar(
+                                        content: Text("Select User"),
+                                      );
+                                    }
+                                  }),
+                                );
                               }
                             },
                             child: Container(
@@ -220,7 +226,7 @@ class _signupState extends State<signup> {
                                         const Color.fromARGB(255, 1, 113, 204)),
                                 child: const Center(
                                     child: Text(
-                                  "Create Acoount",
+                                  "SIGN IN",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 19,
@@ -321,31 +327,36 @@ class _signupState extends State<signup> {
                           height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 50, right: 50),
+                          padding: const EdgeInsets.only(left: 100, right: 50),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                "Already have an acoount ?",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
+                              Expanded(
+                                child: Text(
+                                  "Need an account ?",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                ),
                               ),
                               SizedBox(
                                 width: 3,
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => loginpage()));
-                                },
-                                child: Text(
-                                  "Login In",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 1, 113, 204),
-                                      fontSize: 17,
-                                      decoration: TextDecoration.underline),
+                              Expanded(
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => signup()));
+                                  },
+                                  child: Text(
+                                    "SIGN UP",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 1, 113, 204),
+                                        fontSize: 17,
+                                        decoration: TextDecoration.underline),
+                                  ),
                                 ),
                               )
                             ],

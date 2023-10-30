@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:user_reporter/Admin/home.dart';
-import 'package:user_reporter/Admin/sing.dart';
-import 'package:user_reporter/home.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
+import 'package:user_reporter/views/Admin/admin_export.dart';
+import 'package:user_reporter/views/Reporter/reporter_user_export.dart';
 
-class loginpage extends StatefulWidget {
-  const loginpage({super.key});
+class signup extends StatefulWidget {
+  const signup({super.key});
 
   @override
-  State<loginpage> createState() => _loginpageState();
+  State<signup> createState() => _signupState();
 }
 
-class _loginpageState extends State<loginpage> {
+class _signupState extends State<signup> {
   bool abc = false;
   bool passToggle = true;
   final formfield = GlobalKey<FormState>();
   final formfield1 = GlobalKey<FormState>();
   final passcontroller = TextEditingController();
   final emailcontroller = TextEditingController();
-  String drop = "";
+  final namecontroller = TextEditingController();
+  final lnamecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class _loginpageState extends State<loginpage> {
                           width: double.infinity,
                           color: Color.fromARGB(255, 216, 230, 242),
                           child: Image.asset(
-                            'assets/login.jpg',
+                            'assets/sign.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -52,7 +52,7 @@ class _loginpageState extends State<loginpage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Sign In",
+                          "Sign Up",
                           style: TextStyle(
                               color: Colors.blue,
                               fontSize: 28,
@@ -68,36 +68,41 @@ class _loginpageState extends State<loginpage> {
                               autovalidateMode: AutovalidateMode.always,
                               child: Column(
                                 children: [
-                                  DropdownButtonFormField(
+                                  TextFormField(
+                                    controller: namecontroller,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor:
+                                          Color.fromARGB(255, 171, 200, 225),
+                                      border: OutlineInputBorder(),
+                                      hintText: "  Enter Frist Name",
+                                    ),
+                                    keyboardType: TextInputType.visiblePassword,
                                     validator: (value) {
-                                      if (value == null) {
-                                        return "Select User";
+                                      if (value!.isEmpty) {
+                                        return "Enter a Frist Name";
                                       }
                                       return null;
                                     },
-                                    value: drop.isEmpty ? null : drop,
-                                    hint: Text("Select User"),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  TextFormField(
+                                    controller: lnamecontroller,
                                     decoration: InputDecoration(
+                                      filled: true,
                                       fillColor:
                                           Color.fromARGB(255, 171, 200, 225),
-                                      filled: true,
                                       border: OutlineInputBorder(),
+                                      hintText: "  Enter Last Name",
                                     ),
-                                    items: [
-                                      DropdownMenuItem(
-                                        value: "1",
-                                        child: Text("Admin"),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: "2",
-                                        child: Text("Repoter"),
-                                      ),
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        drop = value!;
-                                        print(drop);
-                                      });
+                                    keyboardType: TextInputType.visiblePassword,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter a Last Name";
+                                      }
+                                      return null;
                                     },
                                   ),
                                   SizedBox(
@@ -113,18 +118,18 @@ class _loginpageState extends State<loginpage> {
                                       hintText: "  Enter Your Email Address",
                                     ),
                                     keyboardType: TextInputType.emailAddress,
-                                    // validator: (value) {
-                                    //   if (value!.isEmpty) {
-                                    //     return "Enter Email";
-                                    //   }
-                                    //   bool emailValid = RegExp(
-                                    //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    //       .hasMatch(value);
-                                    //   if (!emailValid) {
-                                    //     return "Please enter valid email";
-                                    //   }
-                                    //   return null;
-                                    // },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter Email";
+                                      }
+                                      bool emailValid = RegExp(
+                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                          .hasMatch(value);
+                                      if (!emailValid) {
+                                        return "Please enter valid email";
+                                      }
+                                      return null;
+                                    },
                                   ),
                                   SizedBox(
                                     height: 30,
@@ -151,13 +156,13 @@ class _loginpageState extends State<loginpage> {
                                               size: 15),
                                         )),
                                     keyboardType: TextInputType.visiblePassword,
-                                    //   validator: (value) {
-                                    //     if (value!.isEmpty) {
-                                    //       return "Enter a Password";
-                                    //     }
-                                    //     return null;
-                                    //   },
-                                  )
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter a Password";
+                                      }
+                                      return null;
+                                    },
+                                  ),
                                 ],
                               )),
                         ),
@@ -181,12 +186,10 @@ class _loginpageState extends State<loginpage> {
                                 ),
                               ),
                               Expanded(
-                                  child:
-                                      Container(child: Text("Keep me login"))),
-                              Spacer(),
-                              Expanded(
                                   child: Container(
-                                      child: Text("Recovery Password"))),
+                                      child:
+                                          Text("Accept Terms & Conditions"))),
+                              Spacer(),
                             ],
                           ),
                         ),
@@ -203,19 +206,9 @@ class _loginpageState extends State<loginpage> {
                                 passcontroller.clear();
 
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    if (drop == "1") {
-                                      return Home_admin_admin();
-                                    } else if (drop == "2") {
-                                      return Home();
-                                    } else {
-                                      return SnackBar(
-                                        content: Text("Select User"),
-                                      );
-                                    }
-                                  }),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
                               }
                             },
                             child: Container(
@@ -227,7 +220,7 @@ class _loginpageState extends State<loginpage> {
                                         const Color.fromARGB(255, 1, 113, 204)),
                                 child: const Center(
                                     child: Text(
-                                  "SIGN IN",
+                                  "Create Acoount",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 19,
@@ -328,36 +321,31 @@ class _loginpageState extends State<loginpage> {
                           height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 100, right: 50),
+                          padding: const EdgeInsets.only(left: 50, right: 50),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  "Need an account ?",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17),
-                                ),
+                              Text(
+                                "Already have an acoount ?",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 17),
                               ),
                               SizedBox(
                                 width: 3,
                               ),
-                              Expanded(
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => signup()));
-                                  },
-                                  child: Text(
-                                    "SIGN UP",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 1, 113, 204),
-                                        fontSize: 17,
-                                        decoration: TextDecoration.underline),
-                                  ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => loginpage()));
+                                },
+                                child: Text(
+                                  "Login In",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 1, 113, 204),
+                                      fontSize: 17,
+                                      decoration: TextDecoration.underline),
                                 ),
                               )
                             ],

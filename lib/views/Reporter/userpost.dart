@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:user_reporter/apiService.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
 
 class Userpost extends StatefulWidget {
-  Userpost({Key? key}) : super(key: key);
+  Userpost({Key? key, required int type}) : super(key: key);
 
   @override
   State<Userpost> createState() => _UserpostState();

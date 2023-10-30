@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:user_reporter/apiService.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
 
 class Userpost extends StatefulWidget {
   Userpost({Key? key, required this.type, this.userid}) : super(key: key);

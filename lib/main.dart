@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:user_reporter/Admin/loginscreen1.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/responsive.dart';
+import 'package:user_reporter/views/login/loginscreen1.dart';
 
 void main() {
   runApp(const MyApp());

@@ -2,8 +2,9 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:user_reporter/apiService.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/apiService.dart';
+
+import '../../Extension/responsive.dart';
 
 class Category1 extends StatefulWidget {
   Category1({Key? key}) : super(key: key);

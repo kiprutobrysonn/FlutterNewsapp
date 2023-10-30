@@ -6,8 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:user_reporter/Admin/apiService.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
 
 class Category1 extends StatefulWidget {
   Category1({Key? key}) : super(key: key);

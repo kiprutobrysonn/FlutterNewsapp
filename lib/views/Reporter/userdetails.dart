@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:user_reporter/Admin/apiService.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
 
 class UserDetails extends StatefulWidget {
   UserDetails({Key? key}) : super(key: key);
@@ -15,6 +14,7 @@ class _UserDetailsState extends State<UserDetails> {
   ApiService apiService = ApiService();
   var userid;
   bool isloade = false;
+  GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   void initState() {
     // TODO: implement initState
@@ -41,7 +41,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.all((Responsive.isdekstop(context)) ? 20 : 10),
+      padding: EdgeInsets.all(Responsive.isdekstop(context) ? 20 : 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -72,7 +72,7 @@ class _UserDetailsState extends State<UserDetails> {
               ),
               child: Table(
                 columnWidths: {
-                  0: FlexColumnWidth((Responsive.isdekstop(context)) ? 1 : 2),
+                  0: FlexColumnWidth(Responsive.isdekstop(context) ? 1 : 2),
                   1: FlexColumnWidth(4),
                   2: FlexColumnWidth(4),
                   3: FlexColumnWidth(4),
@@ -97,7 +97,7 @@ class _UserDetailsState extends State<UserDetails> {
                       TableCell(
                         verticalAlignment: TableCellVerticalAlignment.middle,
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             "SR NO.",
                             textAlign: TextAlign.center,
@@ -175,29 +175,26 @@ class _UserDetailsState extends State<UserDetails> {
           // ),
           Expanded(
             flex: 1,
-            child: Container(
-              margin: EdgeInsets.only(
-                left: (Responsive.isdekstop(context)) ? 10 : 0,
-                right: (Responsive.isdekstop(context)) ? 10 : 0,
-              ),
-              decoration: BoxDecoration(
-                // boxShadow: [
-                //   BoxShadow(
-                //       color: Colors.black.withOpacity(0.05),
-                //       spreadRadius: 2,
-                //       blurRadius: 5,
-                //       offset: Offset(0, 3)),
-                // ],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: (isloade == true)
-                  ? (data1.isEmpty || data1 == Null)
-                      ? Center(
-                          child: Text("No Data"),
-                        )
-                      : ListView.builder(
+            child: (isloade == true)
+                ? (data1.isNotEmpty)
+                    ? Container(
+                        margin: EdgeInsets.only(
+                          left: Responsive.isdekstop(context) ? 10 : 0,
+                          right: Responsive.isdekstop(context) ? 10 : 0,
+                        ),
+                        decoration: BoxDecoration(
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //       color: Colors.black.withOpacity(0.05),
+                          //       spreadRadius: 2,
+                          //       blurRadius: 5,
+                          //       offset: Offset(0, 3)),
+                          // ],
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: ListView.builder(
                           itemCount: data1.length,
                           itemBuilder: (context, index) {
                             return ListTile(
@@ -217,9 +214,7 @@ class _UserDetailsState extends State<UserDetails> {
                                 child: Table(
                                   columnWidths: {
                                     0: FlexColumnWidth(
-                                        (Responsive.isdekstop(context))
-                                            ? 1
-                                            : 2),
+                                        Responsive.isdekstop(context) ? 1 : 2),
                                     1: FlexColumnWidth(4),
                                     2: FlexColumnWidth(4),
                                     3: FlexColumnWidth(4),
@@ -251,7 +246,7 @@ class _UserDetailsState extends State<UserDetails> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                               // "${data1[index]["id"]}",
-                                              "1",
+                                              "${index + 1}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -338,11 +333,14 @@ class _UserDetailsState extends State<UserDetails> {
                               ),
                             );
                           },
-                        )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    ),
-            ),
+                        ),
+                      )
+                    : Center(
+                        child: Text("No Data"),
+                      )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
           ),
         ],
       ),

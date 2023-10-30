@@ -1,28 +1,21 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:user_reporter/Notification.dart';
-import 'package:user_reporter/UserVerification.dart';
-import 'package:user_reporter/ads.dart';
-import 'package:user_reporter/category.dart';
-import 'package:user_reporter/country.dart';
-import 'package:user_reporter/dashboard.dart';
-import 'package:user_reporter/demo.dart';
-import 'package:user_reporter/district.dart';
-import 'package:user_reporter/responsive.dart';
-import 'package:user_reporter/state1.dart';
-import 'package:user_reporter/userdata.dart';
-import 'package:user_reporter/userdetails.dart';
-import 'package:user_reporter/userpost.dart';
-import 'package:user_reporter/wallet_history.dart';
+import 'package:user_reporter/Extension/responsive.dart';
+import 'package:user_reporter/views/Admin/district.dart';
+import 'package:user_reporter/views/Admin/otpverification.dart';
+import 'package:user_reporter/views/Admin/wallet_history.dart';
+
+import '../Reporter/reporter_user_export.dart';
 
 class addData extends Intent {}
 
 class SidebarXExampleApp extends StatefulWidget {
   String data;
   int d;
-  SidebarXExampleApp({Key? key, required this.data, required this.d})
+  int i;
+  SidebarXExampleApp(
+      {Key? key, required this.data, required this.d, required this.i})
       : super(key: key);
 
   @override
@@ -30,6 +23,14 @@ class SidebarXExampleApp extends StatefulWidget {
 }
 
 class _SidebarXExampleAppState extends State<SidebarXExampleApp> {
+  int c_index = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.i);
+  }
+
   var _controller = SidebarXController(selectedIndex: 0, extended: false);
 
   final _key = GlobalKey<ScaffoldState>();
@@ -186,48 +187,44 @@ class ExampleSidebarX extends StatelessWidget {
         ),
         SidebarXItem(
           icon: Icons.dashboard_outlined,
-          label: 'User details',
+          label: 'OTP Verification',
         ),
         SidebarXItem(
           icon: Icons.trending_down_rounded,
-          label: 'All posts',
+          label: 'User Details',
         ),
         SidebarXItem(
           icon: Icons.reviews_outlined,
-          label: 'All categories',
+          label: 'User Data',
         ),
         SidebarXItem(
           icon: Icons.ads_click_outlined,
-          label: 'User ads',
+          label: 'Ads',
+        ),
+        SidebarXItem(
+          icon: Icons.group_outlined,
+          label: 'User Posts',
+        ),
+        SidebarXItem(
+          icon: Icons.category_outlined,
+          label: 'Categories',
+        ),
+        SidebarXItem(
+          icon: Icons.group_outlined,
+          label: 'State',
+        ),
+        SidebarXItem(
+          icon: Icons.group_outlined,
+          label: 'District',
+        ),
+        SidebarXItem(
+          icon: Icons.wallet_outlined,
+          label: 'Wallet of User',
         ),
         SidebarXItem(
           icon: Icons.notification_add_outlined,
-          label: 'Notifications',
+          label: 'Notification',
         ),
-        SidebarXItem(
-          icon: Icons.menu_book_outlined,
-          label: 'Reporter data',
-        ),
-        SidebarXItem(
-          icon: Icons.card_membership_outlined,
-          label: 'Memebership',
-        ),
-        // SidebarXItem(
-        //   icon: Icons.group_outlined,
-        //   label: 'District',
-        // ),
-        // SidebarXItem(
-        //   icon: Icons.group_outlined,
-        //   label: 'Country',
-        // ),
-        // SidebarXItem(
-        //   icon: Icons.group_outlined,
-        //   label: 'Wallet of User',
-        // ),
-        // SidebarXItem(
-        //   icon: Icons.group_outlined,
-        //   label: 'Notification',
-        // ),
         // SidebarXItem(
         //   icon: Icons.group_outlined,
         //   label: 'User Verification',
@@ -268,29 +265,32 @@ _getTitleByIndex(int index) {
     case 0:
       return Dashboard();
     case 1:
-      return UserDetails();
+      return OtpVerification();
     case 2:
-      return Userpost();
+      return UserDetails();
     case 3:
-      return Category1();
+      return UserData();
     case 4:
       return Ads();
     case 5:
-      return Notification1();
+      return Userpost(
+        type: 0,
+      );
     case 6:
-      return UserDetails();
+      return Category1();
     case 7:
       return State1();
     case 8:
-      return District();
+      return Home1(
+        key: Key("value"),
+      );
     case 9:
-      return Country();
+      return Wallet_User();
+
     case 10:
-      return wallet_history();
-    case 11:
       return Notification1();
-    case 12:
-      return UserVerification();
+    // case 11:
+    //   return UserVerification();
 
     default:
       return Dashboard();

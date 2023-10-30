@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:user_reporter/Admin/apiService.dart';
-import 'package:user_reporter/Admin/header.dart';
-import 'package:user_reporter/Admin/home.dart';
+import 'package:user_reporter/Extension/apiService.dart';
+import 'package:user_reporter/views/Admin/header.dart';
+
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);

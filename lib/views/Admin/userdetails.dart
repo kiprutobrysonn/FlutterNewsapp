@@ -1,18 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:user_reporter/Admin/home.dart';
-import 'package:user_reporter/apiService.dart';
-import 'package:user_reporter/responsive.dart';
+import 'package:user_reporter/Extension/extensions_export.dart';
 
-class UserData extends StatefulWidget {
-  UserData({Key? key}) : super(key: key);
+class UserDetails extends StatefulWidget {
+  UserDetails({Key? key}) : super(key: key);
 
   @override
-  State<UserData> createState() => _UserDataState();
+  State<UserDetails> createState() => _UserDetailsState();
 }
 
-class _UserDataState extends State<UserData> {
+class _UserDetailsState extends State<UserDetails> {
   ApiService apiService = ApiService();
   var userid;
   bool isloade = false;
@@ -37,6 +35,7 @@ class _UserDataState extends State<UserData> {
   int c_index = 0;
 
   String? selectedValue1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +45,7 @@ class _UserDataState extends State<UserData> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "User Data",
+            "User Details",
             style: TextStyle(
               fontSize: 25,
               color: Colors.black,
@@ -75,7 +74,8 @@ class _UserDataState extends State<UserData> {
                   0: FlexColumnWidth((Responsive.isdekstop(context)) ? 1 : 2),
                   1: FlexColumnWidth(4),
                   2: FlexColumnWidth(4),
-                  3: FlexColumnWidth((Responsive.isdekstop(context)) ? 2 : 4),
+                  3: FlexColumnWidth(4),
+                  4: FlexColumnWidth(4),
                 },
                 border: TableBorder.symmetric(
                   inside: BorderSide(
@@ -98,7 +98,7 @@ class _UserDataState extends State<UserData> {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Text(
-                            "SR No.",
+                            "SR NO.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -112,7 +112,7 @@ class _UserDataState extends State<UserData> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "User Name",
+                            "Name",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -126,7 +126,7 @@ class _UserDataState extends State<UserData> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Total Post",
+                            "Email",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -140,7 +140,21 @@ class _UserDataState extends State<UserData> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "view",
+                            "Mobile Number",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Action",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -160,26 +174,29 @@ class _UserDataState extends State<UserData> {
           // ),
           Expanded(
             flex: 1,
-            child: (isloade == true)
-                ? (data1.isNotEmpty)
-                    ? Container(
-                        margin: EdgeInsets.only(
-                          left: (Responsive.isdekstop(context)) ? 10 : 0,
-                          right: (Responsive.isdekstop(context)) ? 10 : 0,
-                        ),
-                        decoration: BoxDecoration(
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //       color: Colors.black.withOpacity(0.05),
-                          //       spreadRadius: 2,
-                          //       blurRadius: 5,
-                          //       offset: Offset(0, 3)),
-                          // ],
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: ListView.builder(
+            child: Container(
+              margin: EdgeInsets.only(
+                left: (Responsive.isdekstop(context)) ? 10 : 0,
+                right: (Responsive.isdekstop(context)) ? 10 : 0,
+              ),
+              decoration: BoxDecoration(
+                // boxShadow: [
+                //   BoxShadow(
+                //       color: Colors.black.withOpacity(0.05),
+                //       spreadRadius: 2,
+                //       blurRadius: 5,
+                //       offset: Offset(0, 3)),
+                // ],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: (isloade == true)
+                  ? (data1.isEmpty || data1 == Null)
+                      ? Center(
+                          child: Text("No Data"),
+                        )
+                      : ListView.builder(
                           itemCount: data1.length,
                           itemBuilder: (context, index) {
                             return ListTile(
@@ -204,10 +221,8 @@ class _UserDataState extends State<UserData> {
                                             : 2),
                                     1: FlexColumnWidth(4),
                                     2: FlexColumnWidth(4),
-                                    3: FlexColumnWidth(
-                                        (Responsive.isdekstop(context))
-                                            ? 2
-                                            : 4),
+                                    3: FlexColumnWidth(4),
+                                    4: FlexColumnWidth(4),
                                   },
                                   border: TableBorder.symmetric(
                                     inside: BorderSide(
@@ -234,7 +249,22 @@ class _UserDataState extends State<UserData> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              "${index + 1}",
+                                              // "${data1[index]["id"]}",
+                                              "1",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        TableCell(
+                                          verticalAlignment:
+                                              TableCellVerticalAlignment.middle,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "${data1[index]["username"]}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -247,33 +277,12 @@ class _UserDataState extends State<UserData> {
                                               TableCellVerticalAlignment.middle,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                CircleAvatar(
-                                                  minRadius:
-                                                      Responsive.ismobile(
-                                                              context)
-                                                          ? 15
-                                                          : null,
-                                                  backgroundImage: AssetImage(
-                                                      'assets/man.png'),
-                                                ),
-                                                SizedBox(
-                                                  width: (Responsive.ismobile(
-                                                          context))
-                                                      ? 5
-                                                      : 20,
-                                                ),
-                                                Text(
-                                                  "${data1[index]["username"]}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
+                                            child: Text(
+                                              "${data1[index]["email"]}",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -283,7 +292,7 @@ class _UserDataState extends State<UserData> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              "${data1[index]["totalpost"]}",
+                                              "${data1[index]["mobilenum"]}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -296,35 +305,27 @@ class _UserDataState extends State<UserData> {
                                               TableCellVerticalAlignment.middle,
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.spaceAround,
                                             children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: OutlinedButton(
-                                                    style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(Colors.blue),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              // Userpost(
-                                                              //     type: 1,
-                                                              //     userid:
-                                                              //         "${data1[index]["id"]}"),
-                                                              Home_admin_admin(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: const Text(
-                                                      "View",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )),
+                                              Expanded(
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.edit,
+                                                    color: Colors.green,
+                                                    size: 25,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 25,
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -336,16 +337,11 @@ class _UserDataState extends State<UserData> {
                               ),
                             );
                           },
-                        ),
-                      )
-                    : SizedBox(
-                        child: Center(
-                          child: Text("No Data"),
-                        ),
-                      )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                        )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    ),
+            ),
           ),
         ],
       ),
